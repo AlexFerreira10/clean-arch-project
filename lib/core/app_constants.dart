@@ -22,7 +22,7 @@ abstract class AppConstants {
   static const borderRadiusLarge = BorderRadius.all(Radius.circular(16.0));
 
   static const double fontSizeMin = 12.0;
-  static const double fontSizeMax = 24.0;
+  static const double fontSizeMax = 20.0;
 
   static const TextStyle light = TextStyle(
     color: Colors.white,

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
 abstract class AppColors {
-  static const primary = Color.fromARGB(255, 30, 190, 195);
-  static const secondary = Color.fromARGB(255, 161, 161, 160);
-  static const pink = Color(0xFFE8465B);
-  static const orange = Color(0xFFF68235);
-  static const gold = Color(0xFFFFCE00);
-  static const yellow = Color(0xFFFFF200);
-  static const green = Color(0xFF449A5D);
-  static const cerulean = Color(0xFF3C9EB9);
-  static const blue = Color(0xFF196FB8);
+  static const primary = Color.fromARGB(255, 76, 128, 163);
+  static const secondary = Color(0xFF9E9E9E);
   static const detailsDark = Color(0xFF474E61);
+
+  static const accent = Color(0xFFFF9800);
+
   static const inputBackground = Color(0xFFF5F5F5);
+  static const background = Color(0xFFFFFFFF);
+
+  static const textPrimary = Color(0xFF212121);
+  static const textSecondary = Color(0xFF757575);
 }

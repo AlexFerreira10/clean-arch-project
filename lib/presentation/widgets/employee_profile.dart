@@ -3,7 +3,20 @@ import 'package:clean_arch_project/core/app_constants.dart';
 import 'package:flutter/material.dart';
 
 class EmployeeProfile extends StatefulWidget {
-  const EmployeeProfile({super.key});
+  final String firstName;
+  final String lastName;
+  final String id;
+  final String avatarUrl;
+  final String email;
+
+  const EmployeeProfile({
+    super.key,
+    required this.firstName,
+    required this.lastName,
+    required this.id,
+    required this.avatarUrl,
+    required this.email,
+  });
 
   @override
   State<EmployeeProfile> createState() => _EmployeeProfileState();
@@ -37,7 +50,7 @@ class _EmployeeProfileState extends State<EmployeeProfile> {
               width: widthContainer,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('lib/assets/default-photo.jpg'),
+                  image: NetworkImage(widget.avatarUrl),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -61,7 +74,7 @@ class _EmployeeProfileState extends State<EmployeeProfile> {
                 child: Column(
                   children: [
                     Text(
-                      'First Name + Second Name- #ID',
+                      '${widget.firstName} ${widget.lastName} - #${widget.id}',
                       style: TextStyle(
                         fontSize: AppConstants.fontSizeMax,
                         fontWeight: FontWeight.bold,
@@ -70,7 +83,7 @@ class _EmployeeProfileState extends State<EmployeeProfile> {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      'correaferreiraalex92@gmail.com',
+                      widget.email,
                       style: TextStyle(
                         fontSize: AppConstants.fontSizeMin,
                         color: AppColors.inputBackground,

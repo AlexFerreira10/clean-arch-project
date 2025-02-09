@@ -25,7 +25,13 @@ class _MyTeamState extends State<MyTeam> {
         itemBuilder: (context, index) {
           return Column(
             children: [
-              EmployeeProfile(),
+              EmployeeProfile(
+                firstName: 'John',
+                lastName: 'Doe',
+                id: '123',
+                avatarUrl: 'https://example.com/avatar.jpg',
+                email: 'john.doe@example.com',
+              ),
               SizedBox(height: 10),
             ],
           );

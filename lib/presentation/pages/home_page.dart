@@ -12,9 +12,11 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final employeeList = ref.watch(employeeProvider);
+    final employeeList = ref.watch(employeeNotifierProvider);
 
     return employeeList.when(
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (error, stack) => Center(child: Text('Error: $error')),
       data: (employees) {
         return Scaffold(
           appBar: AppBar(
@@ -58,8 +60,6 @@ class HomePage extends ConsumerWidget {
           ),
         );
       },
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, stack) => Center(child: Text('Error: $error')),
     );
   }
 }

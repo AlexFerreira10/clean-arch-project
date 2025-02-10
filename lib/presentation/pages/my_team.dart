@@ -1,18 +1,23 @@
 import 'package:clean_arch_project/core/app_color.dart';
 import 'package:clean_arch_project/core/app_constants.dart';
+import 'package:clean_arch_project/presentation/providers/employee_notifier.dart';
+import 'package:clean_arch_project/presentation/providers/employee_profile_notifier.dart';
 import 'package:clean_arch_project/presentation/widgets/employee_profile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class MyTeam extends StatefulWidget {
+class MyTeam extends ConsumerStatefulWidget {
   const MyTeam({super.key});
 
   @override
-  State<MyTeam> createState() => _MyTeamState();
+  ConsumerState<MyTeam> createState() => _MyTeamState();
 }
 
-class _MyTeamState extends State<MyTeam> {
+class _MyTeamState extends ConsumerState<MyTeam> {
   @override
   Widget build(BuildContext context) {
+    final xd = ref.watch(employeeProfileNotifierProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: Text("My Team", style: AppConstants.lightBold),
@@ -24,15 +29,17 @@ class _MyTeamState extends State<MyTeam> {
         itemCount: 1,
         itemBuilder: (context, index) {
           return Column(
-            children: [
-              EmployeeProfile(
-                firstName: 'John',
-                lastName: 'Doe',
-                id: '123',
-                avatarUrl: 'https://example.com/avatar.jpg',
-                email: 'john.doe@example.com',
-              ),
-              SizedBox(height: 10),
+            spacing: 10,
+            children: <Widget>[
+              ...xd.map(
+                (employee) => EmployeeProfile(
+                  id: employee.id.toString(),
+                  firstName: employee.firstName,
+                  lastName: employee.lastName,
+                  avatarUrl: employee.avatar,
+                  email: employee.email,
+                ),
+              )
             ],
           );
         },

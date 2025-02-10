@@ -1,8 +1,10 @@
 import 'package:clean_arch_project/core/app_color.dart';
 import 'package:clean_arch_project/core/app_constants.dart';
+import 'package:clean_arch_project/presentation/providers/employee_profile_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class EmployeeProfile extends StatefulWidget {
+class EmployeeProfile extends ConsumerStatefulWidget {
   final String firstName;
   final String lastName;
   final String id;
@@ -19,13 +21,21 @@ class EmployeeProfile extends StatefulWidget {
   });
 
   @override
-  State<EmployeeProfile> createState() => _EmployeeProfileState();
+  ConsumerState<EmployeeProfile> createState() => _EmployeeProfileState();
 }
 
-class _EmployeeProfileState extends State<EmployeeProfile> {
+class _EmployeeProfileState extends ConsumerState<EmployeeProfile> {
   final widthContainer = 350.0;
   final heightContainer = 330.0;
   final defaultBorderRadiusCircular = 10.0;
+  late final employeeNotifier;
+  String statusEmployee = "Add to Team";
+
+  @override
+  void initState() {
+    super.initState();
+    employeeNotifier = ref.read(employeeProfileNotifierProvider.notifier);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +111,7 @@ class _EmployeeProfileState extends State<EmployeeProfile> {
                           color: AppColors.primary,
                         ),
                         child: Text(
-                          'Add a Team',
+                          'Add to Team',
                           style: AppConstants.light,
                         ),
                       ),

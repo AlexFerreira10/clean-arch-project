@@ -15,14 +15,9 @@ class EmployeeDataSourceImpl implements EmployeeDataSource {
       Uri.parse('$baseUrl/api/users?page=2'),
       headers: headers,
     );
-
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body)['data'];
-      return List<Employee>.from(
-        data.map((json) => Employee.fromJson(json)),
-      );
-    } else {
-      throw Exception('Failed to load employees');
-    }
+    final data = json.decode(response.body)['data'];
+    return List<Employee>.from(
+      data.map((json) => Employee.fromJson(json)),
+    );
   }
 }

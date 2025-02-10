@@ -1,32 +1,21 @@
+import 'package:clean_arch_project/di/di.dart';
 import 'package:clean_arch_project/domain/entities/employee.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:clean_arch_project/domain/usecases/employee_user_case.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class EmployeeProvider extends StateNotifier<AsyncValue<List<Employee>>> {
-  EmployeeProvider() : super(const AsyncValue.loading());
+part 'employee_notifier.g.dart';
 
-  Future<void> fetchEmployees() async {
-    try {
-      final response = await http.get(Uri.parse('https://reqres.in/api/users?page=2'));
+@riverpod
+class EmployeeNotifier extends _$EmployeeNotifier {
+  late final FetchAllEmployeeUseCase _fetchAllEmployeeUseCase;
 
-      if (response.statusCode == 200) {
-        final Map<String, dynamic> data = json.decode(response.body);
+  EmployeeNotifier() {
+    _fetchAllEmployeeUseCase = getIt<FetchAllEmployeeUseCase>();
+  }
 
-        final List<dynamic> employeesData = data['data'];
-
-        final List<Employee> employees = employeesData.map((json) => Employee.fromJson(json)).toList();
-
-        state = AsyncValue.data(employees);
-      } else {
-        state = AsyncValue.error('Failed to load employees', StackTrace.current);
-      }
-    } catch (e) {
-      state = AsyncValue.error(e.toString(), StackTrace.current);
-    }
+  @override
+  FutureOr<List<Employee>> build() async {
+    await Future.delayed(Duration(seconds: 3));
+    return await _fetchAllEmployeeUseCase.call();
   }
 }
-
-final employeeProvider = StateNotifierProvider<EmployeeProvider, AsyncValue<List<Employee>>>((ref) {
-  return EmployeeProvider()..fetchEmployees();
-});

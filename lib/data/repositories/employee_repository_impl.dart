@@ -17,7 +17,7 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
         'Content-Type': 'application/json',
       });
     } catch (e) {
-      return [];
+      rethrow;
     }
   }
 }

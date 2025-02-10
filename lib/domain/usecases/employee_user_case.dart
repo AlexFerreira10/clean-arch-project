@@ -8,5 +8,5 @@ class FetchAllEmployeeUseCase {
 
   FetchAllEmployeeUseCase(this._repository);
 
-  Future<List<Employee>> call(String token) async => await _repository.fetchAll();
+  Future<List<Employee>> call() async => await _repository.fetchAll();
 }
